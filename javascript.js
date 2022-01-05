@@ -2,44 +2,86 @@
 
 // Crea constructores, getters, setters y toString
 
+// No se llama directamente a la propiedad cuando se usa Producto.Precio, en este caso "Precio", se entraria por el Getter, se esta llamando al Getter, y cuando se hace Producto..Precio =, ese = hace que se llame al Setter, se sobreescriben las operaciones, por eso hay que usar barra baja _Precio. Es una forma de indicar que ese atributo/propiedad es PRIVADA, que no se debe tocar.
+
 class Producto {
   constructor(Nombre, Precio) {
-    this.Nombre = Nombre;
-    this.Precio = Precio;
-    // this.nombres = [];
+    this._Nombre = Nombre;
+    this._Precio = Precio;  
+    
   }
+  get Precio() {
+    return this._Precio;
+  }
+  set Precio(nuevoPrecio) {
+    return (this._Precio = nuevoPrecio);
+  }
+  get Nombre() {
+    return this._Nombre;
+  }
+  set Nombre(nuevoNombre) {
+    return (this._Nombre = nuevoNombre);
+  }
+  calcular = (cantidad) => {
+    return Precio * cantidad;
+  };
+}
+class Perecedero extends Producto {
+  constructor(Nombre, Precio, diasACaducar) {
+    super(Nombre, Precio);
+
+    this._diasACaducar = diasACaducar;
+  }
+  get diasACaducar() {
+    return this._diasACaducar;
+  }
+  set diasACaducar(nuevosDiasACaducar) {
+    return (this._diasACaducar = nuevosDiasACaducar);
+  }
+  calcular = (cantidad) => {
+    precioFinal() = super.calcular(cantidad);
+
+    switch(this.diasACaducar){
+      case 1:
+        precioFinal / 4;
+        break;
+      case 2: 
+        precioFinal / 3;
+        break;
+      case 3:
+        precioFinal / 2;
+        break;
+    }
+    return precioFinal;
+
+  };
+}
+class NoPerecedero extends Producto {
+  constructor(Nombre, Precio, tipo) {
+    super(Nombre, Precio);
+
+    this._tipo = tipo;
+  }
+  get tipo() {
+    return this._tipo;
+  }
+  set tipo(nuevoTipo) {
+    return (this._tipo = nuevoTipo);
+  }
+  calcular = (cantidad) => {
+    return Precio * cantidad;
+ }
+}
+class ejecutable{
+
 }
 
-class Perecedero {
-  constructor(diasACaducar) {
-    this.diasACaducar = diasACaducar;
-  }
-}
+// Instanciar objetos
+const producto = new Producto('Platanos', 10);
+const perecedero = new Perecedero('Chuletas',5, 30);
+const noperecedero = new NoPerecedero('Arroz', 1.99, 'Paquete');
 
-class NoPerecedero {
-  constructor(tipo) {
-    this.tipo = tipo;
-  }
-}
-const productor = new Producto ('Platanos', 3);
-const perecedero = new Perecedero (20);
-const noPerecedero = new NoPerecedero('Alimentos');
+console.log(producto, perecedero, noperecedero);
 
-console.log( productor,  perecedero,  noPerecedero);
-//   agregarNombre(nombre) {
-//     this.nombre.push(ombre);
-//   }
-//   eliminarNombre() {
-//     this.nombre.pop();
-//   }
-// }
-
-// ************************************************* Instanciar una clase (Crear un objeto) *************************************************
-// const productoUno = new Producto("Manzanas", 2);
-// const productoDos = new Producto('Platanos', 3);
-
-// // productoUno.agregarNombres('Banana');
-
-// console.log(productoUno);
-
-const calcular = () => {};
+// Producto.Precio = 3;
+// console.log(Producto.Precio);
